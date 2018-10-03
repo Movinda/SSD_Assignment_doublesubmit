@@ -28,17 +28,17 @@ public class Login extends HttpServlet {
         if (username.equals("admin") && password.equals("admin")) {
 
 			/*
-			 * Upon successful login Random session id generates The Session id
+			 * Random session id generated for successful login
 			 * converts to string The id save as a cookie name "user" inside the
-			 * browser The cookie valid for 30 minutes
+			 * browser The cookie valid for 1 hour
 			 */
             UUID idOne = UUID.randomUUID();
             String id = idOne.toString();
             Cookie loginCookie = new Cookie("user", id);
-            loginCookie.setMaxAge(30 * 60);
+            loginCookie.setMaxAge(60 * 60);
             resp.addCookie(loginCookie);
 
-			/* Generates CSRF token and tore in server side */
+			/* Generates CSRF token and store in server side */
             HttpSession session = req.getSession();
 
             String storedToken = (String) session.getAttribute("doubleSubCookie");
